@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  hpe:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-01-01T15:01:29.246076572+05:30"
+    description: A Helm chart for Kubernetes
+    digest: 7f2ba36fd8520faf16b89e8b8f5805b69fc43f99cbd4ec5e28a33fe7efc44222
+    name: hpe
+    type: application
+    urls:
+    - hpe-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-01-01T15:01:29.245259226+05:30"
