@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  hpestock:
+  - apiVersion: v2
+    appVersion: 1.1.1
+    created: "2021-01-02T15:38:11.268900294+05:30"
+    description: A Helm chart for Kubernetes
+    digest: a36b43da26b2b697a26139cbf891ba2e3ee25a0cf34a7aa62e3c488202bfa208
+    name: hpestock
+    type: application
+    urls:
+    - hpestock-0.0.1.tgz
+    version: 0.0.1
+generated: "2021-01-02T15:38:11.267942278+05:30"
