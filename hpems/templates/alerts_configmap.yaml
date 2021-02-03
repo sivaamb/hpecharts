@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.alert.alertconfig }}
+  namespace: {{ .Values.namespace }}
+data:
+ EUREKA_URI: http://admin:admin@10.126.123.21:30876/eureka
+ #ADMIN_PWD: Ctel@123
+ #ADMIN_URI: http://10.126.123.21:32000
+ #ADMIN_USERNAME: ctel
+ JDBC_URL: jdbc:edb://10.126.123.24:5444/central
+ DB_USER: enterprisedb
+ DB_PWD: Ctel@123
+ MAIL_HOST: smtp.gmail.com
+ MAIL_USERNAME: ttsapilot@gmail.com
+ MAIL_PWD: TTSpil0t@!@#

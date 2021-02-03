@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: StatefulSet 
+metadata:
+  name: {{ include "hperegsts.fullname" . }}
+  labels:
+    {{- include "hpereg.labels" . | nindent 4 }}
+  annotations:
+    {{- include "hpems.ann" . | nindent 4 }}
+  namespace: {{ .Values.namespace }}
+spec:
+  serviceName: 'eureka'
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "hpereg.labels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        buildteam: {{ .auth }}
+        buildversion: {{ .version }}
+      {{- end }}
+      labels:
+        {{- include "hpereg.labels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "hpestock.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Values.registry.containername }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ .Values.image.repository }}/{{ .Values.image.environment }}/{{ .Values.regimage.modulename }}:{{ .Values.regimage.moduleversion | default .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8761
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            limits:
+              cpu: "{{ .Values.resources.limits.cpu }}"
+              memory: "{{ .Values.resources.limits.memory }}"
+            requests:
+              cpu: "{{ .Values.resources.requests.cpu }}"
+              memory: "{{ .Values.resources.requests.memory }}"
+          volumeMounts:
+           - name: {{ .Values.registry.regvolume }}
+             mountPath: {{ .Values.mount.path }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Values.registry.regconfig }}
+      imagePullSecrets:
+       - name: regcred1
+  volumeClaimTemplates:
+  - metadata:
+      name: {{ .Values.registry.regvolume }}
+    spec:
+      storageClassName: manual
+      accessModes:
+        - ReadWriteMany
+      resources:
+        requests:
+          storage: {{ .Values.registry.storage }}

@@ -1,0 +1,330 @@
+# Default values for hpestock.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+alert:
+  name: alerts
+  labels: alerts-deploy
+  containername: alerts-container
+  alertconfig: hpe-alert-config
+  alertvolume: alertvolume
+
+alertimage:
+  modulename: alerts
+  moduleversion: "0.1"
+
+prod:
+  config: hpe-prod-config
+
+update:
+  config: hpe-update-config
+  name: update
+  labels: update-deploy
+  containername: update-container
+  #updateconfig: hpe-update-config
+  updatevolume: updatevolume
+ 
+updateimage:
+  modulename: update
+  moduleversion: "0.1" 
+
+#location:
+  #config: hpe-location-config
+
+asn:
+  name: asn
+  labels: asn-deploy
+  containername: asn-container
+  asnvolume: asnvolume
+
+asnimage:
+  modulename: asn
+  moduleversion: "0.1"
+
+registry:
+  storage: 2Gi
+  # server: 10.126.123.86  #production
+  server: 10.10.10.32
+  regconfig: hpe-reg-config
+  name: eureka-svc
+  headname: eureka-headless
+  stsname: eureka
+  labels: eureka
+  port: 8761
+  nodePort: 30876 
+  containername: eureka
+  regvolume: regvolume
+
+regimage:
+  modulename: registry
+  moduleversion: "0.2"
+
+blend:
+  name: blend
+  labels: blend-deploy
+  containername: blend-container
+  blendvolume: blendvolume
+
+blendimage:
+  modulename: blend
+  moduleversion: "0.1"
+
+challan:
+  name: challan
+  labels: challan-deploy
+  containername: challan-container
+  challanvolume: challanvolume
+
+challanimage:
+  modulename: challan
+  moduleversion: "0.1"
+
+
+evcgrn:
+  name: evcgrn
+  labels: evcgrn-deploy
+  containername: evcgrn-container
+  evcgrnvolume: evcvolume
+
+evcgrnimage:
+  modulename: evcgrn
+  moduleversion: "0.1"
+
+icdc:
+  name: icdc
+  labels: icdc-deploy
+  containername: icdc-container
+  icdcvolume: icdcvolume
+
+icdcimage:
+  modulename: icdc
+  moduleversion: "0.1"
+
+
+
+importexport:
+  name: importexport
+  labels: importexport-deploy
+  containername: importexport-container
+  importexportvolume: importvolume
+
+importexportimage:
+  modulename: importexport
+  moduleversion: "0.1"
+
+
+indent:
+  name: indent
+  labels: indent-deploy
+  containername: indent-container
+  indentvolume: indentvolume
+
+indentimage:
+  modulename: indent
+  moduleversion: "0.1"
+
+primaryindent:
+  name: primaryindent
+  labels: primaryindent-deploy
+  containername: primaryindent-container
+  primaryindentvolume: primaryvolume
+
+primaryindentimage:
+  modulename: primaryindent
+  moduleversion: "0.1"
+
+
+production:
+  name: production
+  labels: production-deploy
+  containername: production-container
+  productionvolume: prodvolume
+
+productionimage:
+  modulename: production
+  moduleversion: "0.1"
+
+
+sale:
+  name: sale
+  labels: sale-deploy
+  containername: sale-container
+  salevolume: salevolume
+
+saleimage:
+  modulename: sale
+  moduleversion: "0.1"
+
+fullnameOverride: "stock"
+stock:
+  name: stock1111111111
+  labels: stock-deploy
+  containername: stock-container
+  stockvolume: stockvolume
+
+stockimage:
+  modulename: stock
+  moduleversion: "0.1"
+
+
+updateprocess:
+  name: updateprocess
+  labels: updateprocess-deploy
+  containername: updateprocess-container
+  updateprocessvolume: updateprocvolume
+
+updateprocessimage:
+  modulename: updateprocess
+  moduleversion: "0.1"
+
+vendorstock:
+  name: vendorstock
+  labels: vendorstock-deploy
+  containername: vendorstock-container
+  vendorstockvolume: vstockvolume
+
+vendorstockimage:
+  modulename: vendorstock
+  moduleversion: "0.1"
+
+
+
+hologram:
+  name: hologram
+  labels: hologram-deploy
+  containername: hologram-container
+  hologramconfig: hpe-prod-config
+  hologramvolume: hologramvolume
+
+hologramimage:
+  modulename: hologram
+  moduleversion: "0.1"
+
+
+location:
+  name: location
+  labels: location-deploy
+  containername: location-container
+  locationconfig: hpe-location-config
+  locationvolume: locationvolume
+
+locationimage:
+  modulename: location
+  moduleversion: "0.1"
+
+gate:
+  name: gate
+  labels: gate-deploy
+  containername: gate-container
+  gateconfig: hpe-api-config
+  gatevolume: apivolume
+
+gateimage:
+  modulename: ttsgateway
+  moduleversion: "0.1"
+
+
+#stockdeploy: stock-deploy
+
+buildversion: first 
+buildteam: SivakumarM
+namespace: prod
+
+mount:
+  #name: stockvolume
+  path: /application/logs
+
+image:
+  repository: tereg.toracabs.in:5000
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+  environment: prod
+  #modulename: stock
+  moduleversion: 0.1
+
+imageCredentials:
+  registry: tereg.toracabs.in:5000
+  username: testuser
+  password: cteladmin
+  email: admin@ctel.in
+
+
+imagePullSecrets: []
+nameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: 
+  auth: SivakumarM
+  version: first 
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: NodePort
+  port: 8080
+  nodePort: 32001
+  targetPort: 8080
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: 
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 250m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 512Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 70
+  # targetMemoryUtilizationPercentage: 80
+
+gateautoscaling:
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 80
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+

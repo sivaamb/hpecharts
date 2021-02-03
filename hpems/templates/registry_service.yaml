@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hpereg.fullname" . }}
+  labels:
+    {{- include "hpereg.labels" . | nindent 4 }}
+  namespace: {{ .Values.namespace }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.registry.port }}
+      nodePort: {{ .Values.registry.nodePort }}
+      name: eureka
+  selector:
+    {{- include "hpereg.selectorLabels" . | nindent 4}}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hpereghead.fullname" . }}
+  labels:
+    {{- include "hpereg.labels" . | nindent 4 }}
+  namespace: {{ .Values.namespace }}
+spec:
+  clusterIP: None
+  ports:
+    - port: {{ .Values.registry.port }}
+      name: eureka
+  selector:
+    {{- include "hpereg.selectorLabels" . | nindent 4}}

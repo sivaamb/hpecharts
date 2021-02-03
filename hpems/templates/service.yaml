@@ -1,0 +1,17 @@
+{{- if .Values.autoscaling.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hpestock.fullname" . }}
+  labels:
+    {{- include "hpestock.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "hpestock.selectorLabels" . | nindent 4 }}
+{{- end }}

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.update.config }}
+  namespace: {{ .Values.namespace }}
+data:
+  EUREKA_URI: http://admin:admin@10.126.123.21:30876/eureka
+  JDBC_URL: jdbc:edb://10.126.123.24:5444/central
+  DB_USER: enterprisedb
+  DB_PWD: Ctel@123
+  KAFKA_IP: 10.126.123.54:9092,10.126.123.55:9092,10.126.123.56:9092
